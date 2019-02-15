@@ -8,22 +8,37 @@ WhosCool <- function(x){cat("YOU ARE!")}
 
 ### This is the third edit that we want to push to Github
 
-## We add some code here
-library(parallel)
-cores <- detectCores()
+## We add some code here to test parallelization in R
+rm(list=ls())
+gc()
 
-install.packages("tictoc")
+library(parallel)
 library(tictoc)
 
-# Creating Vector
-Million <- as.list(1:1000000)
+# detecting cores
+cores <- detectCores()
 
-# Squaring and taking the time with 1 core
+# Creating Vector
+number <- as.list(1:10)
+
+# Waiting 10 secs, then printing the number with 1 core
 tic()
-Output <- lapply(Million,function(x){as.numeric(x)*as.numeric(x)})
+lapply(number,function(x){Sys.sleep(10);print(x)})
 toc()
 
-# Squaring and taking the time with all cores
+# cleaning RAM
+gc()
+
+# Waiting 10 secs, then printing the number with all cores
 tic()
-Output <- mclapply(Million,function(x){as.numeric(x)*as.numeric(x)},mc.cores = cores)
+mclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
+toc()
+
+# cleaning RAM
+gc()
+
+# Preallocating Memory
+Output <- 1:10
+tic()
+Output <- mclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
 toc()
