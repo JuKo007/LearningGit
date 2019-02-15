@@ -14,6 +14,7 @@ gc()
 
 library(parallel)
 library(tictoc)
+library(pbmcapply)
 
 # detecting cores
 cores <- detectCores()
@@ -41,4 +42,10 @@ gc()
 Output <- 1:10
 tic()
 Output <- mclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
+toc()
+
+# Preallocating Memory
+Output <- 1:10
+tic()
+Output <- pbmclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
 toc()
