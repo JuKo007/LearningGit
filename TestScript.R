@@ -44,7 +44,7 @@ tic()
 Output <- mclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
 toc()
 
-# Preallocating Memory
+# Preallocating Memory + adding progress bar
 Output <- 1:10
 tic()
 Output <- pbmclapply(number,function(x){Sys.sleep(10);print(x)}, mc.cores = cores)
